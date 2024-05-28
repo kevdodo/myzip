@@ -1,0 +1,20 @@
+[package]
+name = "zip"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+# Example of customizing binaries in Cargo.toml.
+[[bin]]
+name = "myunzip0"
+
+[[bin]]
+name = "myzip0"
+
+[lib]
+name = "utils"
+path = "src/bin/utils.rs"

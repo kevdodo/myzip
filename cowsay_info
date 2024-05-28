@@ -1,0 +1,44 @@
+local file header signature (== 0x04034b50): 0x04034b50
+	version needed to extract (2 bytes): 20
+	general purpose bit flag (2 bytes): 0x0
+	compression method (2 bytes): 8
+	last mod file time (2 bytes): 0
+	last mod file date (2 bytes): 0
+	crc-32 (4 bytes): 0xdeadbeef
+	compressed size (4 bytes): 121
+	uncompressed size (4 bytes): 293
+	file name length (2 bytes): 10
+	extra field length (2 bytes): 0
+	file name (variable size): cowsay.txt
+	extra field (variable size): 
+	file contents (DEFLATE stream): 5388271270e92b44e6972a642496a52ab8a65716946426e629a4e5945a2954e697aa17a52aa4e767e6a52b94e42bc470c52824a52a242ae496e6e656ea29e001fa5c0aba44022e989e18208e8b8f8f830b804434f2f33563602e45b641233e5e13a403043463f463502441a0a606647ab9420d161928c50500
+central file header signature (== 0x02014b50): 0x02014b50
+	specification version (1 byte): 30
+	made by (1 byte): 65
+	version needed to extract (2 bytes): 20
+	general purpose bit flag (2 bytes): 0x0
+	compression method (2 bytes): 8
+	last mod file time (2 bytes): 0
+	last mod file date (2 bytes): 0
+	crc-32 (4 bytes): 0xdeadbeef
+	compressed size (4 bytes): 121
+	uncompressed size (4 bytes): 293
+	file name length (2 bytes): 10
+	extra field length (2 bytes): 0
+	file comment length (2 bytes): 0
+	disk number start (2 bytes): 0
+	internal file attributes (2 bytes): 1
+	external file attributes (4 bytes): 1
+	relative offset of local header (4 bytes): 0
+	file name (variable size): cowsay.txt
+	extra field (variable size): 
+	file comment (variable size): 
+end of central dir signature (== 0x06054b50): 0x06054b50
+	number of this disk (2 bytes): 0
+	number of the disk with the start of the central directory (2 bytes): 0
+	total number of entries in the central directory on this disk (2 bytes): 1
+	total number of entries in the central directory (2 bytes): 1
+	size of the central directory (4 bytes): 56
+	offset of start of central directory with respect to the starting disk number (4 bytes): 161
+	.ZIP file comment length (2 bytes): 0
+	.ZIP file comment (variable size): 
