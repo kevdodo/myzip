@@ -7,10 +7,8 @@ use std::str;
 use std::path::Path;
 
 mod inflate;
-mod utils;
-mod dynamic;
 use inflate::*;
-use ::utils::*;
+use utils::*;
 
 
 

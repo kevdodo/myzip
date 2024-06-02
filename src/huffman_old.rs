@@ -1,6 +1,6 @@
 // mod lz77;
 
-use utils::*;
+use crate::*;
 
 use std::fs::{File};
 use std::io::{Read, Write};
@@ -134,14 +134,4 @@ fn get_huffman_bool(buffer: &[u8]){
         }
         out.push(byte);
     }
-}
-
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-        panic!("Please provide a single argument: the input file name");
-    }
-
-    let input_file_name = &args[1];
-    get_huffman(input_file_name)
 }

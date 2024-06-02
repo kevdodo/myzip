@@ -21,12 +21,12 @@ pub fn inflate_dynamic(block_header: &[u8], idx: &mut usize, file_data: &mut Vec
     let hclen = get_num_reverse(&get_n_bits_reverse(&block_header, *idx, 4));
     *idx += 4;
     
-    let code_lengths = get_code_length_code_matrix(&block_header, idx, hclen);
+    let code_lengths = utils::dynamic::get_code_length_code_matrix(&block_header, idx, hclen);
 
     // println!("code lengths : {}", code_lengths.len());
     let alphabet : [u16; 19] = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
     
-    let mat = convert_code_lengths_matrix(&code_lengths, alphabet.to_vec());
+    let mat = utils::dynamic::convert_code_lengths_matrix(&code_lengths, alphabet.to_vec());
     
     // let row_start = 0;
     // let row_end = 10;
@@ -47,7 +47,7 @@ pub fn inflate_dynamic(block_header: &[u8], idx: &mut usize, file_data: &mut Vec
     // 18 -> 11
     // 01 -> 01
     
-    let lit_codes = get_codes_lit_dist(&mat, &block_header, idx, hlit as usize + 257);
+    let lit_codes = utils::dynamic::get_codes_lit_dist(&mat, &block_header, idx, hlit as usize + 257);
     
     // // println!("lit_codes matrix:");
     // // for row in row_start..lit_codes.len() {
@@ -58,7 +58,7 @@ pub fn inflate_dynamic(block_header: &[u8], idx: &mut usize, file_data: &mut Vec
     // // }
     // // dbg!(lit_codes);
     
-    let dist_codes = get_codes_lit_dist(&mat, &block_header, idx, hdist as usize + 1); 
+    let dist_codes = utils::dynamic::get_codes_lit_dist(&mat, &block_header, idx, hdist as usize + 1); 
     // println!("dist codes matrix: ");
     // for row in row_start..dist_codes.len() {
     //     for col in col_start..col_end {
@@ -67,7 +67,7 @@ pub fn inflate_dynamic(block_header: &[u8], idx: &mut usize, file_data: &mut Vec
     //     println!();
     // }        // dbg!(dist_codes);
     
-    decode_dynamic(lit_codes, dist_codes, &block_header, idx, file_data);
+    utils::dynamic::decode_dynamic(lit_codes, dist_codes, &block_header, idx, file_data);
     // Vec::new()
 }
 

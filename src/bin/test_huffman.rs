@@ -1,12 +1,8 @@
-mod old_huffman;
-
-
 mod tests{
     use std::vec;
-    use utils::*;
 
     use super::*;
-    use old_huffman::*;
+    use utils::huffman_old::*;
     #[test]
     fn test_huffman_num(){
         let num = 255;
@@ -36,5 +32,5 @@ mod tests{
 }
 
 fn main(){
-
+    println!("hello world")
 }
