@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, collections::HashMap, vec};
+use std::{cmp::Ordering, vec};
 // use std::{collections::{HashSet}, env, fs::{self, File}, io::{Write, Read}};
 
 
@@ -16,6 +16,7 @@ pub const CHARACTER_BOUNDS : [(u16, u16); 4] = [(0, 23), (48, 191), (192, 199), 
 
 pub mod huffman_old;
 pub mod dynamic;
+pub mod huffman;
 
 
 #[derive(Debug)]
@@ -123,17 +124,17 @@ pub fn decode_lz77(value : (u16, u16), decoded : &mut Vec<u8>) {
 
 pub fn decode_deflate(buffer : &[u8], idx: &mut usize, file_data: &mut Vec<u8>){
 
-    let mut eob  = false;
-    let mut cnt = 0;
+    // let mut eob  = false;
+    // let mut cnt = 0;
 
-    while !eob{
+    loop {
         let ascii = get_num_buffer(buffer, idx);
 
         match ascii {
             AsciiNum::Ascii(value) => {
                 // println!("val: {}", value);
                 if value == 256{
-                    eob = true;
+                    // eob = true;
                     break;
                 }
                 file_data.push(value as u8);
@@ -176,7 +177,7 @@ pub fn get_num_buffer(buffer: &[u8], idx: &mut usize) -> AsciiNum {
     // println!("bound {}", bound);
     
 
-    let mut bits_offset = 0;
+    let mut bits_offset;
 
     if num <= bound {
         num = num + 256;
@@ -337,7 +338,7 @@ fn reverse_huffman_lengths(length: usize) -> Vec<bool>{
     }
 }
 pub fn convert_length(length: usize) -> Vec<bool>{
-    let mut len_num = 0;
+    // let mut len_num = 0;
     let mut num_bits = 0; 
 
     // println!("Length!!!: {}", length);

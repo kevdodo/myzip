@@ -1,7 +1,7 @@
-use core::num;
-use std::collections::hash_map;
-use std::hash::Hash;
-use std::thread::current;
+// use core::num;
+// use std::collections::hash_map;
+// use std::hash::Hash;
+// use std::thread::current;
 use std::{cmp::Ordering, collections::HashMap, vec};
 use crate::*;
 
@@ -111,7 +111,7 @@ pub fn get_code_length_matrix(next_code: &mut Vec<usize>, alphabet: Vec<u16>, co
     for _ in 0..max_code_length+1{
         tree.push([u16::MAX; 100000]);
     }
-    let num_rows = tree.len();
+    // let num_rows = tree.len();
     
     // println!("Number of rows: {}", num_rows);
 

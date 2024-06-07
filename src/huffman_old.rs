@@ -5,7 +5,7 @@ use crate::*;
 use std::fs::{File};
 use std::io::{Read, Write};
 use std::cmp::Ordering;
-use std::{env, fs::{self}};
+// use std::{env, fs::{self}};
 
 // use lz77::*;
 
@@ -101,37 +101,37 @@ pub fn get_huffman(file_name: &String){
     file.write_all(&out).expect("Couldn't write bytes");
 }
 
-fn get_huffman_bool(buffer: &[u8]){
-    // let mut f = File::open(file_name).expect("couldn't open file");
-    // let mut buffer = Vec::new();
-    // f.read_to_end(&mut buffer).expect("couldn't read file");    
+// fn get_huffman_bool(buffer: &[u8]){
+//     // let mut f = File::open(file_name).expect("couldn't open file");
+//     // let mut buffer = Vec::new();
+//     // f.read_to_end(&mut buffer).expect("couldn't read file");    
 
-    let mut all_bits: Vec<bool> = Vec::new();
+//     let mut all_bits: Vec<bool> = Vec::new();
 
-    // BFinal
-    all_bits.push(true);
+//     // BFinal
+//     all_bits.push(true);
 
-    // BTYPE
-    all_bits.push(true);
-    all_bits.push(false);
+//     // BTYPE
+//     all_bits.push(true);
+//     all_bits.push(false);
 
-    for val in buffer{
-        let mut bool_arr = reverse_huffman(*val);
-        all_bits.append(&mut bool_arr);
-    }
+//     for val in buffer{
+//         let mut bool_arr = reverse_huffman(*val);
+//         all_bits.append(&mut bool_arr);
+//     }
 
-    let mut eob = vec![false, false, false, false, false, false, false, false];
-    all_bits.append(&mut eob);
+//     let mut eob = vec![false, false, false, false, false, false, false, false];
+//     all_bits.append(&mut eob);
 
 
-    let mut out = Vec::new();
-    for chunk in all_bits.chunks(8) {
-        let mut byte = 0u8;
-        for (i, &bit) in chunk.iter().enumerate() {
-            if bit {
-                byte |= 1 << i;
-            }
-        }
-        out.push(byte);
-    }
-}
+//     let mut out = Vec::new();
+//     for chunk in all_bits.chunks(8) {
+//         let mut byte = 0u8;
+//         for (i, &bit) in chunk.iter().enumerate() {
+//             if bit {
+//                 byte |= 1 << i;
+//             }
+//         }
+//         out.push(byte);
+//     }
+// }

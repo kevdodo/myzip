@@ -5,9 +5,9 @@ use std::io::Read;
 use std::str;
 
 // use crate::huffman::*;
-mod huffman;
+// mod huffman;
 
-use huffman::*;
+use utils::huffman::*;
 // use crate::utils::get_bit;
 
 
