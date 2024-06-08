@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+use fxhash::FxHashMap;
+use fxhash::FxHashSet;
+
 // use std::io::Read;
 pub const LENGTH_STARTING : [u16; 6] = [3, 11, 19, 35, 67, 131];
 
@@ -33,8 +36,8 @@ fn reverse_huffman(num: u8) -> Vec<bool>{
     }
 }
 
-fn _get_temp_matches_buffer(buffer_idx: usize, buffer: &Vec<u8>) -> HashMap<(u8, u8, u8), usize>{
-    let mut temp_matches = HashMap::new();
+fn _get_temp_matches_buffer(buffer_idx: usize, buffer: &Vec<u8>) -> FxHashMap<(u8, u8, u8), usize>{
+    let mut temp_matches = FxHashMap::default();
 
     if buffer_idx as i32 - 3 >= 0 {
         temp_matches.insert((buffer[buffer_idx-3], buffer[buffer_idx-2], buffer[buffer_idx-1]), buffer_idx-3);
@@ -48,7 +51,7 @@ fn _get_temp_matches_buffer(buffer_idx: usize, buffer: &Vec<u8>) -> HashMap<(u8,
     temp_matches
 }
 
-fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut HashMap<(u8, u8, u8), Vec<usize>>) -> Option<(usize, usize)>{
+fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut FxHashMap<(u8, u8, u8), FxHashSet<usize>>) -> Option<(usize, usize)>{
 
     /*
     
@@ -85,10 +88,9 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Ha
 
         loop {
             if temp_buffer_idx >= 3 {
-                let val = true_matches.entry((buffer[temp_buffer_idx-3], buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1])).or_insert(Vec::new());
-                if !val.contains(&(temp_buffer_idx-2)){
-                    val.insert(0, temp_buffer_idx-3);
-                }
+                let val = true_matches.entry((buffer[temp_buffer_idx-3], buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1])).or_insert(FxHashSet::default());
+
+                val.insert(temp_buffer_idx-2);
             }
             if temp_buffer_idx < buffer.len() {
                 let next_el = buffer[found_idx];
@@ -110,11 +112,12 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Ha
 
     // let true_matches = dbg!(true_matches);
 
-    let next_3_bytes = next_3_bytes;
-    if let Some(indices) = true_matches.get(&next_3_bytes){
-        let indices = indices.clone();
+    // let next_3_bytes = next_3_bytes;
+    let mut to_remove = Vec::new();
+    if let  Some(indices) = true_matches.get(&next_3_bytes){
         for index in indices.clone(){
             if *buffer_idx <= index || *buffer_idx - index > 32768 {
+                to_remove.push(index);
                 continue;
             }
             // println!("index: {}", index);
@@ -132,34 +135,24 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Ha
                     break;
                 }                
                 if temp_buffer_idx >= 2 {
-                    let val = true_matches.entry((buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1], buffer[temp_buffer_idx])).or_insert(Vec::new());
-                    if !val.contains(&(temp_buffer_idx-2)){
-                        val.insert(0, temp_buffer_idx-2);
+                    let key = (buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1], buffer[temp_buffer_idx]);
+                    if !true_matches.contains_key(&key) {
+                        true_matches.insert(key, FxHashSet::default());
                     }
+                    true_matches.get_mut(&key).unwrap().insert(temp_buffer_idx-2);
                 }
-
-                // println!("next_el {} | idx {}, temp_buff {} | idx {}", next_el, found_idx, buff[temp_buffer_idx], temp_buffer_idx);
-
-                // need to update the hashmap again
-
                 temp_buffer_idx += 1;
                 found_idx += 1;
             }
             // println!("curr_dist {}, best distance: {}", *buffer_idx - start_match_idx, curr_dist);
             if temp_buffer_idx - *buffer_idx > max_len {
-                // println!("temp buff idx {}, buff idx {}", temp_buffer_idx, buffer_idx);
                 curr_dist = *buffer_idx - start_match_idx;
                 max_len = temp_buffer_idx - *buffer_idx;
             }
-            // println!("indexasdf {}", index);
         }
-        // if max_len == 7{
-        //     dbg!(indices);
-        //     println!("lol 1");
-        //     println!("buffer index: {}", buffer_idx);
-        //     println!("buffer index: {}", curr_dist);
-        //     panic!()
-        // }
+    }
+    for index in to_remove {
+        true_matches.get_mut(&next_3_bytes).unwrap().remove(&index);
     }
 
     let curr_option = if max_len != 0 {
@@ -173,8 +166,8 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Ha
 
 pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
 
-    // hashmap of the bytes to the previous found indices
-    let mut true_matches: HashMap<(u8, u8, u8), Vec<usize>> = HashMap::new();
+    // FxHashMap of the bytes to the previous found indices
+    let mut true_matches: FxHashMap<(u8, u8, u8), FxHashSet<usize>> = FxHashMap::default();
 
     if buffer.len() < 3{
         for num in buffer{
@@ -183,18 +176,13 @@ pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
         return;
     }
 
-    // let buff: Vec<char> = buffer.chars().collect();
-
     let mut buffer_idx = 0;
 
     while buffer_idx < buffer.len(){
 
         if buffer_idx >= 2 {
-            let val = true_matches.entry((buffer[buffer_idx-2], buffer[buffer_idx-1], buffer[buffer_idx])).or_insert(Vec::new());
-            
-            if !val.contains(&(buffer_idx-2)){
-                val.insert(0, buffer_idx-2);
-            }
+            let val = true_matches.entry((buffer[buffer_idx-2], buffer[buffer_idx-1], buffer[buffer_idx])).or_insert(FxHashSet::default());
+            val.insert(buffer_idx-2);
         }
 
         let matches = find_match_buffer(&buffer, &buffer_idx, &mut true_matches);
@@ -205,11 +193,6 @@ pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
                 let mut len_arr = convert_length(length);
                 let mut dist_arr = convert_dist(distance);
 
-                // if length == 7 && distance == 19648{
-                //     len_arr = dbg!(len_arr);
-                //     dist_arr = dbg!(dist_arr);
-                // }
-                // println!("length: {}, distance: {}", length, distance);
                 compressed.append(&mut len_arr);
                 compressed.append(&mut dist_arr);
 
@@ -226,7 +209,6 @@ pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
             }
         }
         // println!("buff idx: {}", buffer_idx);
-        // compressed = dbg!(compressed);
     }
     
 }

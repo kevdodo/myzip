@@ -1,0 +1,352 @@
+Run 1
++ ./target/release/simple_compress test4.txt
+Run 1
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.475s
+user	0m7.415s
+sys	0m0.010s
+Run 2
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.944s
+user	0m7.882s
+sys	0m0.020s
+Run 3
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.539s
+user	0m7.469s
+sys	0m0.020s
+Run 4
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.564s
+user	0m7.505s
+sys	0m0.010s
+Run 5
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.421s
+user	0m7.355s
+sys	0m0.020s
+Run 6
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.504s
+user	0m7.430s
+sys	0m0.020s
+Run 7
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.570s
+user	0m7.503s
+sys	0m0.020s
+Run 8
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.663s
+user	0m7.605s
+sys	0m0.010s
+Run 9
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.549s
+user	0m7.481s
+sys	0m0.020s
+Run 10
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.653s
+user	0m7.574s
+sys	0m0.030s
+Run 11
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.558s
+user	0m7.478s
+sys	0m0.030s
+Run 12
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.563s
+user	0m7.497s
+sys	0m0.020s
+Run 13
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.536s
+user	0m7.480s
+sys	0m0.010s
+Run 14
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.675s
+user	0m7.608s
+sys	0m0.020s
+Run 15
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.619s
+user	0m7.535s
+sys	0m0.030s
+Run 16
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.573s
+user	0m7.515s
+sys	0m0.010s
+Run 17
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.617s
+user	0m7.529s
+sys	0m0.040s
+Run 18
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.697s
+user	0m7.617s
+sys	0m0.030s
+Run 19
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.181s
+user	0m8.110s
+sys	0m0.020s
+Run 20
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m9.216s
+user	0m9.138s
+sys	0m0.030s
+Run 21
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m9.067s
+user	0m8.975s
+sys	0m0.040s
+Run 22
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.992s
+user	0m7.933s
+sys	0m0.010s
+Run 23
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.498s
+user	0m8.429s
+sys	0m0.020s
+Run 24
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.123s
+user	0m8.028s
+sys	0m0.040s
+Run 25
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.867s
+user	0m8.791s
+sys	0m0.020s
+Run 26
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.420s
+user	0m8.319s
+sys	0m0.040s
+Run 27
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m9.166s
+user	0m9.063s
+sys	0m0.050s
+Run 28
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m9.472s
+user	0m9.385s
+sys	0m0.030s
+Run 29
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.654s
+user	0m7.584s
+sys	0m0.010s
+Run 30
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.532s
+user	0m7.476s
+sys	0m0.010s
+Run 31
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.199s
+user	0m8.126s
+sys	0m0.020s
+Run 32
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.896s
+user	0m8.814s
+sys	0m0.030s
+Run 33
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.841s
+user	0m7.745s
+sys	0m0.040s
+Run 34
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.616s
+user	0m7.549s
+sys	0m0.020s
+Run 35
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.913s
+user	0m7.842s
+sys	0m0.020s
+Run 36
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.090s
+user	0m7.994s
+sys	0m0.040s
+Run 37
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.854s
+user	0m7.791s
+sys	0m0.010s
+Run 38
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.663s
+user	0m7.579s
+sys	0m0.030s
+Run 39
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.647s
+user	0m7.579s
+sys	0m0.020s
+Run 40
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.743s
+user	0m7.667s
+sys	0m0.020s
+Run 41
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.899s
+user	0m7.832s
+sys	0m0.020s
+Run 42
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.580s
+user	0m7.531s
+sys	0m0.000s
+Run 43
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.693s
+user	0m7.633s
+sys	0m0.010s
+Run 44
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.243s
+user	0m8.168s
+sys	0m0.020s
+Run 45
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.154s
+user	0m8.103s
+sys	0m0.000s
+Run 46
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.177s
+user	0m8.099s
+sys	0m0.030s
+Run 47
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.045s
+user	0m7.974s
+sys	0m0.020s
+Run 48
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m8.512s
+user	0m8.446s
+sys	0m0.010s
+Run 49
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.738s
+user	0m7.637s
+sys	0m0.050s
+Run 50
++ ./target/release/simple_compress test4.txt
+Valid compression of test4.txt
+
+real	0m7.767s
+user	0m7.694s
+sys	0m0.030s
