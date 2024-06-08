@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::collections::LinkedList;
 
 use fxhash::FxHashMap;
 use fxhash::FxHashSet;
@@ -59,7 +60,7 @@ fn _get_temp_matches_buffer(buffer_idx: usize, buffer: &Vec<u8>) -> FxHashMap<(u
     temp_matches
 }
 
-fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut FxHashMap<(u8, u8, u8), FxHashSet<usize>>) -> Option<(usize, usize)>{
+fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut FxHashMap<(u8, u8, u8), LinkedList<usize>>) -> Option<(usize, usize)>{
 
     /*
     
@@ -71,8 +72,6 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
 
     let mut max_len = 0;
     let mut curr_dist = 0;
-
-
 
     if *buffer_idx + 2 >= buffer.len(){
         let curr_option = if max_len != 0 {
@@ -97,9 +96,9 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
         loop {
             //  HEREE
             if temp_buffer_idx >= 3 {
-                let val = true_matches.entry((buffer[temp_buffer_idx-3], buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1])).or_insert(FxHashSet::default());
+                let val = true_matches.entry((buffer[temp_buffer_idx-3], buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1])).or_insert(LinkedList::default());
 
-                val.insert(temp_buffer_idx-2);
+                val.push_back(temp_buffer_idx-2);
             }
             if temp_buffer_idx < buffer.len() {
                 let next_el = buffer[found_idx];
@@ -122,12 +121,17 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
     // let true_matches = dbg!(true_matches);
 
     // let next_3_bytes = next_3_bytes;
-    let mut to_remove = Vec::new();
+    let mut to_remove = 0;
     if let Some(indices) = true_matches.get(&next_3_bytes){
+        let mut max_temp_buffer_idx = *buffer_idx;
+
         'index_loop: for index in indices.clone(){
-            if *buffer_idx <= index || *buffer_idx - index > 32768 {
-                to_remove.push(index);
+            if *buffer_idx <= index {
                 continue;
+            }
+            if *buffer_idx - index > 32768{
+                to_remove += 1;
+                break 'index_loop;
             }
             if max_len == 258{
                 break;
@@ -154,24 +158,27 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
                 }                
                 // HEREEE
                 if temp_buffer_idx >= 2 {
-                    let key = (buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1], buffer[temp_buffer_idx]);
-                    if !true_matches.contains_key(&key) {
-                        true_matches.insert(key, FxHashSet::default());
+                    if temp_buffer_idx > max_temp_buffer_idx{
+                        let key = (buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1], buffer[temp_buffer_idx]);
+                        if !true_matches.contains_key(&key) {
+                            true_matches.insert(key, LinkedList::default());
+                        }
+                        true_matches.get_mut(&key).unwrap().push_front(temp_buffer_idx-2);
                     }
-                    true_matches.get_mut(&key).unwrap().insert(temp_buffer_idx-2);
+                    max_temp_buffer_idx = max_temp_buffer_idx.max(temp_buffer_idx);
                 }
                 temp_buffer_idx += 1;
                 found_idx += 1;
             }
-            // println!("curr_dist {}, best distance: {}", *buffer_idx - start_match_idx, curr_dist);
+
             if temp_buffer_idx - *buffer_idx > max_len {
                 curr_dist = *buffer_idx - start_match_idx;
                 max_len = temp_buffer_idx - *buffer_idx;
             }
         }
     }
-    for index in to_remove {
-        true_matches.get_mut(&next_3_bytes).unwrap().remove(&index);
+    for index in 0..to_remove {
+        true_matches.get_mut(&next_3_bytes).unwrap().pop_back();
     }
 
     let curr_option = if max_len != 0 {
@@ -186,7 +193,7 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
 pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
 
     // FxHashMap of the bytes to the previous found indices
-    let mut true_matches: FxHashMap<(u8, u8, u8), FxHashSet<usize>> = FxHashMap::default();
+    let mut true_matches: FxHashMap<(u8, u8, u8), LinkedList<usize>> = FxHashMap::default();
 
     if buffer.len() < 3{
         for num in buffer{
@@ -200,8 +207,8 @@ pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
     while buffer_idx < buffer.len(){
 
         if buffer_idx >= 2 {
-            let val = true_matches.entry((buffer[buffer_idx-2], buffer[buffer_idx-1], buffer[buffer_idx])).or_insert(FxHashSet::default());
-            val.insert(buffer_idx-2);
+            let val = true_matches.entry((buffer[buffer_idx-2], buffer[buffer_idx-1], buffer[buffer_idx])).or_insert(LinkedList::default());
+            val.push_front(buffer_idx-2);
         }
 
         let matches = find_match_buffer(&buffer, &buffer_idx, &mut true_matches);
@@ -229,6 +236,7 @@ pub fn lz77_compression(buffer: Vec<u8>, compressed: &mut Vec<bool>){
         }
         // println!("buff idx: {}", buffer_idx);
     }
+    // dbg!(true_matches);
     
 }
 
