@@ -13,7 +13,15 @@ pub const DISTANCE_CODES: [u16; 14] = [0, 5, 9, 17, 33, 65, 129, 257, 513, 1025,
 use core::cmp::Ordering;
 use crate::*;
 
+pub struct custom_dict{
+    dict: [[[Vec<u8>; 256]; 256]; 256]
+}
 
+
+// [miniz_oxide/miniz_oxide/src/deflate/core.rs:1297:9] self.max_probes = [
+//     12,
+//     4,
+// ]
 fn reverse_huffman(num: u8) -> Vec<bool>{
     match num.cmp(&144){
         Ordering::Equal => {
@@ -87,6 +95,7 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
         let mut temp_buffer_idx = *buffer_idx + 2; 
 
         loop {
+            //  HEREE
             if temp_buffer_idx >= 3 {
                 let val = true_matches.entry((buffer[temp_buffer_idx-3], buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1])).or_insert(FxHashSet::default());
 
@@ -114,26 +123,36 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
 
     // let next_3_bytes = next_3_bytes;
     let mut to_remove = Vec::new();
-    if let  Some(indices) = true_matches.get(&next_3_bytes){
-        for index in indices.clone(){
+    if let Some(indices) = true_matches.get(&next_3_bytes){
+        'index_loop: for index in indices.clone(){
             if *buffer_idx <= index || *buffer_idx - index > 32768 {
                 to_remove.push(index);
                 continue;
+            }
+            if max_len == 258{
+                break;
             }
             // println!("index: {}", index);
             let mut found_idx = index;
             let start_match_idx = found_idx;
             let mut temp_buffer_idx = *buffer_idx; 
-            if max_len == 258{
-                break;
-            }
+
             loop {
                 if temp_buffer_idx >= buffer.len() {
                     break;
                 }
-                if buffer[found_idx] != buffer[temp_buffer_idx] || (temp_buffer_idx - *buffer_idx >= 258){
+                if buffer[found_idx] != buffer[temp_buffer_idx]{
                     break;
+                }
+                // No need to keep looking
+                if temp_buffer_idx - *buffer_idx >= 258{
+                    if temp_buffer_idx - *buffer_idx > max_len {
+                        curr_dist = *buffer_idx - start_match_idx;
+                        max_len = temp_buffer_idx - *buffer_idx;
+                    }
+                    break 'index_loop;
                 }                
+                // HEREEE
                 if temp_buffer_idx >= 2 {
                     let key = (buffer[temp_buffer_idx-2], buffer[temp_buffer_idx-1], buffer[temp_buffer_idx]);
                     if !true_matches.contains_key(&key) {
