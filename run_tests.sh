@@ -8,8 +8,8 @@ time ./target/release/simple_compress test2.txt
 time ./target/release/simple_compress test4.txt
 time ./target/release/simple_compress test8.txt
 
-# cargo build --release  --bin compress_miniz_oxide
+cargo build --release  --bin compress_miniz_oxide
 
-# time ./target/release/compress_miniz_oxide test2.txt
-# time ./target/release/compress_miniz_oxide test4.txt
-# time ./target/release/compress_miniz_oxide test8.txt
+time ./target/release/compress_miniz_oxide test2.txt
+time ./target/release/compress_miniz_oxide test4.txt
+time ./target/release/compress_miniz_oxide test8.txt

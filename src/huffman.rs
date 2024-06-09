@@ -14,15 +14,78 @@ pub const DISTANCE_CODES: [u16; 14] = [0, 5, 9, 17, 33, 65, 129, 257, 513, 1025,
 use core::cmp::Ordering;
 use crate::*;
 
-pub struct custom_dict{
-    dict: [[[Vec<u8>; 256]; 256]; 256]
-}
 
+pub const MAX_MATCH_LEN: usize = 258;
+pub const LZ_DICT_SIZE: usize = 32_768;
+pub const LZ_DICT_FULL_SIZE: usize = LZ_DICT_SIZE + MAX_MATCH_LEN - 1 + 1;
 
 // [miniz_oxide/miniz_oxide/src/deflate/core.rs:1297:9] self.max_probes = [
 //     12,
 //     4,
 // ]
+
+pub struct HashBuffers {
+    // contains character
+    pub dict: [(u8, u8, u8) ; LZ_DICT_FULL_SIZE],
+    // next "hash" for current position
+    pub next: [u16; LZ_DICT_SIZE],
+    // represents hash chain
+    pub hash: [u16; LZ_DICT_SIZE],
+}
+
+impl HashBuffers {
+    #[inline]
+    pub fn reset(&mut self) {
+        *self = HashBuffers::default();
+    }
+}
+
+impl Default for HashBuffers {
+    fn default() -> HashBuffers {
+        HashBuffers {
+            dict: [0; LZ_DICT_FULL_SIZE],
+            next: [0; LZ_DICT_SIZE],
+            hash: [0; LZ_DICT_SIZE],
+        }
+    }
+}
+
+struct RollingHash {
+    hash: u64,
+    first_char: u8,
+}
+
+impl RollingHash {
+    const BASE: u64 = 256;
+    const MOD: u64 = 4096;
+
+    fn new() -> Self {
+        RollingHash {
+            hash: 0,
+            first_char: 0,
+        }
+    }
+
+    fn add_char(&mut self, ch: u8) {
+        if self.first_char != 0 {
+            self.hash = (self.hash * Self::BASE + ch as u64) % Self::MOD;
+        } else {
+            self.hash = ch as u64;
+            self.first_char = ch;
+        }
+    }
+
+    fn remove_char(&mut self, ch: u8) {
+        if self.first_char != 0 {
+            let first_char_val = (self.first_char as u64 * Self::BASE.pow((self.hash as f64).log(Self::BASE as f64) as u32)) % Self::MOD;
+            self.hash = (self.hash + Self::MOD - first_char_val) % Self::MOD;
+            self.first_char = ch;
+        }
+    }
+}
+
+
+
 fn reverse_huffman(num: u8) -> Vec<bool>{
     match num.cmp(&144){
         Ordering::Equal => {
@@ -125,13 +188,15 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
     if let Some(indices) = true_matches.get(&next_3_bytes){
         let mut max_temp_buffer_idx = *buffer_idx;
 
+        let num_indices = indices.len();
+
         'index_loop: for index in indices.clone(){
             if *buffer_idx <= index {
                 continue;
             }
             if *buffer_idx - index > 32768{
                 to_remove += 1;
-                break 'index_loop;
+                continue;
             }
             if max_len == 258{
                 break;
@@ -177,7 +242,7 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
             }
         }
     }
-    for index in 0..to_remove {
+    for _ in 0..to_remove {
         true_matches.get_mut(&next_3_bytes).unwrap().pop_back();
     }
 
