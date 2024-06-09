@@ -6,6 +6,7 @@ use std::env;
 use utils::huffman::compress;
 
 use miniz_oxide::inflate::decompress_to_vec;
+use utils::huffman::compress_threads;
 
 
 fn main(){
@@ -17,7 +18,7 @@ fn main(){
     let mut buffer = Vec::new();//"yooooooooooooo".as_bytes(); //
     f.read_to_end(&mut buffer).expect("couldn't read file");
     
-    let compressed = compress(buffer);
+    let compressed = compress_threads(buffer);
     // let compressed = compress_to_vec(&buffer, 1);
     println!("compressed length {}", compressed.len());
 

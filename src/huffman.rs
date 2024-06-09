@@ -12,8 +12,10 @@ pub const LENGTH_STARTING : [u16; 6] = [3, 11, 19, 35, 67, 131];
 pub const DISTANCE_CODES: [u16; 14] = [0, 5, 9, 17, 33, 65, 129, 257, 513, 1025, 2049, 4097, 8193, 16385];
 
 // mod huffman_old;
+use core::cmp::Ordering;
 use crate::*;
-
+use std::sync::Arc;
+use std::thread;
 
 pub const MAX_MATCH_LEN: usize = 258;
 pub const LZ_DICT_SIZE: usize = 32_768;
@@ -105,6 +107,7 @@ fn find_match_buffer(buffer: &Vec<u8>, buffer_idx: &usize, true_matches: &mut Fx
     if let Some(indices) = true_matches.get(&next_3_bytes){
         let mut max_temp_buffer_idx = *buffer_idx;
 
+        let num_indices = indices.len();
 
         'index_loop: for index in indices.clone(){
             if *buffer_idx <= index {
@@ -235,7 +238,7 @@ pub fn compress(buffer: Vec<u8>) -> Vec<u8>{
     all_bits.push(true);
     all_bits.push(false);
 
-    lz77_compression(buffer, &mut all_bits);
+    lz77_compression_new(buffer, &mut all_bits);
     
     let mut eob = vec![false, false, false, false, false, false, false];
     all_bits.append(&mut eob);
@@ -262,6 +265,80 @@ pub fn compress(buffer: Vec<u8>) -> Vec<u8>{
         out.push(byte);
     }
     out
+}
+
+pub fn compress_threads(buffer: Vec<u8>) -> Vec<u8>{
+    // let test_buff = &[97, 98, 99, 100, 97, 98, 99, 100, 97, 98, 99, 100]; 
+        
+
+    let buffer = Arc::new(buffer); // Wrap the buffer in an Arc to share it between threads
+    let mut handles = Vec::new(); // To store the thread handles
+
+    let block_size = 32768; // Size of each block in bytes
+    let num_blocks = (buffer.len() + block_size - 1) / block_size; // Number of blocks, rounding up
+
+    for i in 0..num_blocks {
+        let buffer = Arc::clone(&buffer); // Clone the Arc for the new thread
+
+        let handle = thread::spawn(move || {
+            let start = i * block_size;
+            let end = if i == num_blocks - 1 {
+                buffer.len() 
+            } else {
+                start + block_size
+            };
+
+            let mut all_bits = Vec::new();
+
+            lz77_compression_new(buffer[start..end].to_vec(), &mut all_bits);
+
+            all_bits // Return the result
+        });
+
+        handles.push(handle);
+    }
+
+    let mut out = Vec::new();
+    out.push(true);
+    
+    // BTYPE
+    out.push(true);
+    out.push(false);
+
+    for handle in handles {
+        let all_bits = handle.join().unwrap();
+        out.extend(all_bits);
+    }
+
+
+
+    // lz77_compression_new(buffer, &mut all_bits);
+    
+    let mut eob = vec![false, false, false, false, false, false, false];
+    out.append(&mut eob);
+
+
+    let additional_zeros = if out.len() % 8 != 0 {
+        8 - out.len() % 8
+    } else {
+        0
+    };
+
+    for _ in 0..additional_zeros{
+        out.push(false);
+    }
+
+    let mut ret = Vec::new();
+    for chunk in out.chunks(8) {
+        let mut byte = 0u8;
+        for (i, &bit) in chunk.iter().enumerate() {
+            if bit {
+                byte |= 1 << i;
+            }
+        }
+        ret.push(byte);
+    }
+    ret
 }
 
 // fn main(){

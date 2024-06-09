@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 fxhash = "0.2.1"
 miniz_oxide = { path = "miniz_oxide/miniz_oxide" }
-
+lazy_static = "1.4.0"
 # Example of customizing binaries in Cargo.toml.
 [[bin]]
 name = "myunzip0"

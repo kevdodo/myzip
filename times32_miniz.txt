@@ -1,0 +1,270 @@
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.244s
+user	0m0.861s
+sys	0m0.059s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.230s
+user	0m0.946s
+sys	0m0.020s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.450s
+user	0m1.073s
+sys	0m0.098s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.382s
+user	0m1.000s
+sys	0m0.049s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.377s
+user	0m0.956s
+sys	0m0.088s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.232s
+user	0m0.907s
+sys	0m0.039s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.227s
+user	0m0.905s
+sys	0m0.049s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.246s
+user	0m0.964s
+sys	0m0.030s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.247s
+user	0m0.946s
+sys	0m0.042s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.240s
+user	0m0.928s
+sys	0m0.020s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.208s
+user	0m0.933s
+sys	0m0.020s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.252s
+user	0m0.984s
+sys	0m0.010s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.337s
+user	0m1.022s
+sys	0m0.040s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.586s
+user	0m1.262s
+sys	0m0.031s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.451s
+user	0m0.983s
+sys	0m0.078s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.672s
+user	0m1.293s
+sys	0m0.010s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.567s
+user	0m1.132s
+sys	0m0.079s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.366s
+user	0m1.013s
+sys	0m0.031s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.552s
+user	0m1.185s
+sys	0m0.021s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.849s
+user	0m1.377s
+sys	0m0.070s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.464s
+user	0m1.123s
+sys	0m0.031s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.405s
+user	0m1.054s
+sys	0m0.020s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.709s
+user	0m1.303s
+sys	0m0.060s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.291s
+user	0m0.951s
+sys	0m0.010s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.420s
+user	0m1.030s
+sys	0m0.050s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.511s
+user	0m1.064s
+sys	0m0.039s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.498s
+user	0m1.096s
+sys	0m0.050s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.249s
+user	0m0.933s
+sys	0m0.010s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.420s
+user	0m1.049s
+sys	0m0.049s
++ ./target/release/compress_miniz_oxide test32.txt
+look: 0
+look: 39321173
+compressed length 21266766
+Valid compression of test32.txt
+
+real	0m1.417s
+user	0m1.044s
+sys	0m0.039s

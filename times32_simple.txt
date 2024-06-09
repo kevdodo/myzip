@@ -1,0 +1,210 @@
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m3.652s
+user	0m7.073s
+sys	0m2.364s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m3.686s
+user	0m7.592s
+sys	0m2.143s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m3.932s
+user	0m7.498s
+sys	0m2.730s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m3.960s
+user	0m8.149s
+sys	0m2.506s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.276s
+user	0m8.556s
+sys	0m2.924s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m3.753s
+user	0m7.914s
+sys	0m2.261s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.736s
+user	0m9.164s
+sys	0m3.553s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.560s
+user	0m9.242s
+sys	0m2.878s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.720s
+user	0m9.452s
+sys	0m3.116s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.660s
+user	0m9.325s
+sys	0m3.061s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.562s
+user	0m10.116s
+sys	0m2.730s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.829s
+user	0m9.348s
+sys	0m3.062s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.082s
+user	0m10.962s
+sys	0m4.148s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m4.786s
+user	0m9.757s
+sys	0m3.192s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m6.064s
+user	0m12.277s
+sys	0m3.935s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.955s
+user	0m12.161s
+sys	0m3.686s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m7.581s
+user	0m15.445s
+sys	0m5.116s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m12.771s
+user	0m18.169s
+sys	0m7.935s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m7.701s
+user	0m12.279s
+sys	0m4.022s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m6.301s
+user	0m12.680s
+sys	0m4.544s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m6.208s
+user	0m12.477s
+sys	0m4.335s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.337s
+user	0m11.067s
+sys	0m3.397s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.843s
+user	0m11.243s
+sys	0m3.702s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.781s
+user	0m11.722s
+sys	0m3.983s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.733s
+user	0m11.816s
+sys	0m3.510s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m6.569s
+user	0m13.136s
+sys	0m4.248s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.120s
+user	0m9.940s
+sys	0m3.084s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m9.926s
+user	0m15.648s
+sys	0m9.162s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.389s
+user	0m11.250s
+sys	0m3.236s
++ ./target/release/simple_compress test32.txt
+compressed length 26302922
+Valid compression of test32.txt
+
+real	0m5.747s
+user	0m11.248s
+sys	0m3.796s

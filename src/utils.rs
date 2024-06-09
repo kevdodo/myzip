@@ -14,6 +14,14 @@ pub const DISTANCE_BITS: usize = 5;
 
 pub const CHARACTER_BOUNDS : [(u16, u16); 4] = [(0, 23), (48, 191), (192, 199), (400, 511)];// u16::from_str_radix("00110000", 2).expect("bruh");
 
+// #[allow(const_evaluatable_unchecked)]
+static HUFF_STUFF: [[bool; 9]; 143] = gen_table();
+// use lazy_static::lazy_static;
+
+// lazy_static! {
+//     pub static ref HUFF_STUFF: [[bool; 9]; 143] = gen_table();
+// }
+
 pub mod huffman_old;
 pub mod dynamic;
 pub mod huffman;
@@ -63,7 +71,7 @@ pub fn get_num_reverse(bits: &Vec<bool>) -> u16{
     num
 }
 
-pub fn get_bit_reverse(buffer : &[u8], idx : usize) -> bool {
+pub const fn get_bit_reverse(buffer : &[u8], idx : usize) -> bool {
     /*
     Returns the bit at the given index in the buffer.
     */
@@ -72,7 +80,7 @@ pub fn get_bit_reverse(buffer : &[u8], idx : usize) -> bool {
     let byte = buffer[idx / 8];
 
     // go through the stuff regularly
-    let bit = (byte << (idx % 8)) & 2u8.pow(7) == 2u8.pow(7);
+    let bit = (byte << (idx % 8)) & 128u8 == 128u8;
 
     // println!("{:08b}", 2u8.pow(7));
 
@@ -97,7 +105,7 @@ pub fn get_n_bits_regular(buffer : &[u8], idx : usize, n : usize) -> Vec<bool> {
 // RENAME TO GET NEXT BITS
 pub fn get_n_bits_reverse(buffer : &[u8], idx : usize, n : usize) -> Vec<bool> {
     // This just gets the bits going from left to right
-    let mut bits = Vec::new(); 
+    let mut bits = Vec::with_capacity(8); 
 
     for i in 0..n{
         let bit = get_bit_reverse(buffer, idx+i);
@@ -106,6 +114,7 @@ pub fn get_n_bits_reverse(buffer : &[u8], idx : usize, n : usize) -> Vec<bool> {
     // let bits = dbg!(bits);
     bits
 }
+
 
 
 pub fn decode_lz77(value : (u16, u16), decoded : &mut Vec<u8>) {
@@ -411,6 +420,40 @@ pub fn convert_dist(distance: usize) -> Vec<bool>{
 
 
 
+pub const fn get_9_bits_reverse(buffer : &[u8], idx : usize) -> [bool; 9] {
+    // This just gets the bits going from left to right
+    let mut bits = [false; 9]; 
+    let n = 9;
+    let mut i = 0;
+    while i < n{
+        let bit = get_bit_reverse(buffer, idx+i);
+        bits[i] = bit;
+        i += 1;
+    }
+    // let bits = dbg!(bits);
+    bits
+}
+
+
+const fn gen_table()-> [[bool; 9]; 143]{
+    const fn gen_huff(num:u16)->[bool; 9]{
+        let val: u16 = num as u16 - 144 + 400;
+        let big_bytes = (val >> 8) as u8;
+        let little_bytes = val as u8;
+        let bruh = get_9_bits_reverse(&[big_bytes, little_bytes], 16-9);
+        // panic!();
+        return bruh;
+    }
+    let mut ans: [[bool; 9]; 143] = [[false; 9]; 143];    
+    let mut start_idx = 144;
+    while start_idx <=255{
+        ans[start_idx - 144] = gen_huff(start_idx as u16);
+        start_idx += 1;
+    } 
+    ans
+}
+
+
 fn reverse_huffman(num: u8) -> Vec<bool>{
     match num.cmp(&144){
         Ordering::Equal => {
@@ -419,16 +462,17 @@ fn reverse_huffman(num: u8) -> Vec<bool>{
         },
         Ordering::Less => {
             let new_num = num + 0b00110000;
-            // panic!();
             return get_n_bits_reverse(&[new_num], 0, 8);
         },
         Ordering::Greater => {
-            let val: u16 = num as u16 - 144 + 400;
-            let big_bytes = (val >> 8) as u8;
-            let little_bytes = val as u8;
-            let bruh = get_n_bits_reverse(&[big_bytes, little_bytes], 16-9, 9);
+            // let val: u16 = num as u16 - 144 + 400;
+            // let big_bytes = (val >> 8) as u8;
+            // let little_bytes = val as u8;
+            // let bruh = get_n_bits_reverse(&[big_bytes, little_bytes], 16-9, 9);
             // panic!();
-            return bruh;
+            return HUFF_STUFF[num as usize - 144].to_vec();
+            // return bruh;
+            // return HUFF_STUFF[num as usize - 144].to_vec();
         }
     }
 }
