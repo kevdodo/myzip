@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::Read;
+use std::io::Write;
 use std::env;
 
 use utils::huffman::compress;
@@ -19,6 +20,9 @@ fn main(){
     let compressed = compress(buffer);
     // let compressed = compress_to_vec(&buffer, 1);
     println!("compressed length {}", compressed.len());
+
+    let mut f = File::create("compressed_out").expect("couldn't open file");
+    f.write(&compressed).expect("couldn't write");
     
     let mut f = File::open(file_name).expect("couldn't open file");
     let mut copy = Vec::new();

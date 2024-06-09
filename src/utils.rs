@@ -17,6 +17,7 @@ pub const CHARACTER_BOUNDS : [(u16, u16); 4] = [(0, 23), (48, 191), (192, 199), 
 pub mod huffman_old;
 pub mod dynamic;
 pub mod huffman;
+pub mod huffman_new;
 
 
 #[derive(Debug)]
@@ -408,3 +409,26 @@ pub fn convert_dist(distance: usize) -> Vec<bool>{
     }
 }
 
+
+
+fn reverse_huffman(num: u8) -> Vec<bool>{
+    match num.cmp(&144){
+        Ordering::Equal => {
+            // panic!();
+            return vec![true, true, false, false, true, false, false, false, false]
+        },
+        Ordering::Less => {
+            let new_num = num + 0b00110000;
+            // panic!();
+            return get_n_bits_reverse(&[new_num], 0, 8);
+        },
+        Ordering::Greater => {
+            let val: u16 = num as u16 - 144 + 400;
+            let big_bytes = (val >> 8) as u8;
+            let little_bytes = val as u8;
+            let bruh = get_n_bits_reverse(&[big_bytes, little_bytes], 16-9, 9);
+            // panic!();
+            return bruh;
+        }
+    }
+}
